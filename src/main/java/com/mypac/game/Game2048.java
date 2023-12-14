@@ -85,9 +85,9 @@ public class Game2048 implements Game {
             }
             case FORWARD -> {
                 for (int j = 0; j < board.getWidth(); j++) {
-                    List<Integer> colForward = helper.moveAndMergeEqual(board.getValues(board.getColumn(j)));
-                    for (int i = 0; i < colForward.size(); i++) {
-                        board.addItem(board.getKey(i, j), colForward.get(i));
+                    List<Integer> columnForward = helper.moveAndMergeEqual(board.getValues(board.getColumn(j)));
+                    for (int i = 0; i < columnForward.size(); i++) {
+                        board.addItem(board.getKey(i, j), columnForward.get(i));
                     }
                 }
             }
@@ -95,10 +95,10 @@ public class Game2048 implements Game {
                 for (int j = 0; j < board.getWidth(); j++) {
                     List<Integer> inputList = board.getValues(board.getColumn(j));
                     Collections.reverse(inputList);
-                    List<Integer> colBack = helper.moveAndMergeEqual(inputList);
-                    int colBackSize = colBack.size();
-                    for (int i = 0; i < colBackSize; i++) {
-                        board.addItem(board.getKey(colBackSize - 1 - i, j), colBack.get(i));
+                    List<Integer> columnBack = helper.moveAndMergeEqual(inputList);
+                    int columnBackSize = columnBack.size();
+                    for (int i = 0; i < columnBackSize; i++) {
+                        board.addItem(board.getKey(columnBackSize - 1 - i, j), columnBack.get(i));
                     }
                 }
             }
@@ -111,7 +111,6 @@ public class Game2048 implements Game {
             }
         }
         return true;
-
     }
 
     /**

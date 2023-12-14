@@ -1,40 +1,32 @@
 package com.mypac.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class GameHelper {
-    public List<Integer> moveAndMergeEqual(List<Integer> list) {
-        var resListSize = list.size();
-        List<Integer> resList = new ArrayList<Integer>(resListSize);
+    public List<Integer> moveAndMergeEqual(List<Integer> listInput) {
+        var outputListSize = listInput.size();
+        var outputList = new ArrayList<Integer>(outputListSize);
 
-        if(list.isEmpty()){
-            return resList;
-        }
+        List<Integer> listWithoutNulls = listInput.stream()
+                .filter(Objects::nonNull).toList();
 
-        List<Integer> listExtNull = new ArrayList<>();
-        for (Integer i : list) {
-            if (i != null){
-                listExtNull.add(i);
-            }
-        }
-        var listExtNullSize = listExtNull.size();
+        var listWithoutNullsSize = listWithoutNulls.size();
 
-        for (int i = 0; i < resListSize; i++) {
-            if(i < listExtNullSize){
-                var curVal = listExtNull.get(i);
-                if (i < listExtNullSize - 1 && curVal == listExtNull.get(i+1)){
-                    resList.add(curVal * 2);
-                    i++;
-                    resListSize ++;///
-                } else {
-                    resList.add(curVal);
-                }
+        for (int i = 0; i < listWithoutNullsSize; i++) {
+            var currentValue = listWithoutNulls.get(i);
+            if (i < listWithoutNullsSize - 1 && currentValue == listWithoutNulls.get(i + 1)){
+                outputList.add(currentValue * 2);
+                i++;
             } else {
-                resList.add(null);
+                outputList.add(currentValue);
             }
         }
 
-        return resList;
+        outputList.addAll(new ArrayList<>(Collections.nCopies(outputListSize - outputList.size(), null)));
+
+        return outputList;
     }
 }
